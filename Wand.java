@@ -1,58 +1,43 @@
 package Game;
-import java.util.Scanner;
+import java.util.Random;
 
-import static Game.GameLogic.readInt;
+public class Wand {
 
-
-public class Wand{
-    static Scanner scanner = new Scanner(System.in);
-    public String core;
-    public int size;
-
-    public Wand() {
-        this.core = "";
-        this.size = 0;
-        corewand();
-        sizewand();
+    private static int size;
+    private static Core core;
+    private static String wand;
+    public void wand() {
+        Random random = new Random();
+        this.core = Core.values()[random.nextInt(Core.values().length)];
+        this.size = random.nextInt(15) + 22;
+        this.wand = this.core + " " + this.size;
+        System.out.println("Your wand measures " + this.size + "cm and is made of " + this.core.type + " core."+" It is often said that a wand chooses its wielder!");
 
     }
 
-    public void corewand() {
-        boolean coreSet = false;
+    public void setSize(int size) {
+        this.size = size;
+    }
 
-        do {
-            GameLogic.printHeading("Create your own wand \n What core would you like?");
-            for (int i = 1; i < Core.cores.length; i++)
-                System.out.println("(" + i + ") " + Core.cores[i]);
-            int input = readInt("->", 3);
-            core = Core.cores[input];
-            GameLogic.printHeading("You chose a " + core + " core" + "\nIs that correct?");
-            System.out.println("(1) Yes!");
-            System.out.println("(2) No, I want to change the core.");
-            int input2 = readInt("->", 2);
-            if (input2 == 1)
-                coreSet = true;
-        } while (!coreSet);
+    public static int getSize() {
+        return size;
     }
-    public void sizewand(){
-        boolean sizeSet = false;
-        do{
-            GameLogic.printHeading("How long would you like the wand to be 22-35cm?");
-            size = Integer.parseInt(scanner.next());
-            if (size < 22  || size > 35) {
-                System.out.println("The size you chose is not correct");
-                GameLogic.anythingToContinue();
-                sizewand();
-            }
-            else{
-                // verifying if correct size
-                GameLogic.printHeading("You chose a wand of " + size + " cm" + "\nIs that correct?");
-                System.out.println("(1) Yes!");
-                System.out.println("(2) No, I want to change the size.");
-                int input = readInt("->", 2);
-                if (input == 1)
-                    sizeSet = true;
-            }
-        }while(!sizeSet);
+
+    public void setCore(Core core) {
+        this.core = core;
     }
+
+    public static Core getCore() {
+        return core;
+    }
+
+    public void setWand(Wand wand) {
+        this.wand = String.valueOf(wand);
+    }
+
+    public static String getWand() {
+        return wand;
+    }
+
+
 }
